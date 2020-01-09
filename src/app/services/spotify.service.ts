@@ -8,17 +8,21 @@ import { TokenService } from './token.service';
 export class SpotifyService {
 
   constructor(private http: HttpClient,
-              private tokenService: TokenService) {
+    private tokenService: TokenService) {
     console.log('Spotify services works!');
+  }
+
+  delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
   getQuery(query: string) {
 
     if (ConstantsAplicacion.TOKEN === null || ConstantsAplicacion.TOKEN === undefined || ConstantsAplicacion.TOKEN.length === 0) {
-      this.updateToken();
-      setTimeout(() => {
-        console.log('firts token generated.');
-      }, 750);
+      (async () => {
+        this.updateToken();
+        await this.delay(1000);
+      })();
     }
     const url = `https://api.spotify.com/v1/${query}`;
     const headers = new HttpHeaders({

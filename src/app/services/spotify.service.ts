@@ -13,9 +13,13 @@ export class SpotifyService {
   }
 
   getQuery(query: string) {
+
+    if (ConstantsAplicacion.TOKEN === null || ConstantsAplicacion.TOKEN === undefined || ConstantsAplicacion.TOKEN.length === 0) {
+      this.updateToken();
+    }
     const url = `https://api.spotify.com/v1/${query}`;
     const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + sessionStorage.getItem(ConstantsAplicacion.TOKEN)
+      Authorization: 'Bearer ' + ConstantsAplicacion.TOKEN
     });
 
     return this.http.get(url, { headers });
@@ -43,8 +47,7 @@ export class SpotifyService {
 
   updateToken() {
     this.tokenService.getToken().subscribe((token: any) => {
-      console.log(token.access_token);
-      sessionStorage.setItem(ConstantsAplicacion.TOKEN, token.access_token);
+      sessionStorage.setItem(ConstantsAplicacion.KEY, token.access_token);
     }, (error) => {
       console.log(error);
     });

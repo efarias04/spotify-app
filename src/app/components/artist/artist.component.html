@@ -1,0 +1,85 @@
+<app-spinner *ngIf="loading"></app-spinner>
+<div class="row animated fadeIn" *ngIf="!loading">
+  <div class="col-2">
+    <img
+      [src]="artist.images | noimage"
+      class="img-fluid img-thumbnail img-circle"
+      [alt]="artist.name"
+      [title]="artist.name"
+    />
+  </div>
+  <div class="col">
+    <h3>{{ artist.name }}</h3>
+    <p>
+      <iframe
+        [src]="artist.uri | domsegurofollow"
+        width="300"
+        height="56"
+        scrolling="no"
+        frameborder="0"
+        style="border:none; overflow:hidden;"
+        allowtransparency="true"
+      ></iframe>
+    </p>
+    <p class="card-text">
+      <span
+        class="badge badge-pill badge-success"
+        *ngFor="let genres of artist.genres"
+        >{{ genres }}</span
+      >
+    </p>
+  </div>
+  <div class="col-2 text-right">
+    <button [routerLink]="source" class="btn btn-outline-light">
+      Return
+    </button>
+  </div>
+</div>
+
+<div class="row animated fadeIn m-5" *ngIf="!loading">
+  <div class="col">
+    <table class="table">
+      <thead>
+        <tr class="font-color">
+          <th>Foto</th>
+          <th>Álbum</th>
+          <th>Canción</th>
+          <th>Vista previa</th>
+          <th>Reproducir</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let track of topTracks" class="font-color">
+          <td>
+            <img
+              [src]="track.album.images | noimage"
+              [alt]="track.album.name"
+              [title]="track.album.name"
+              class="img-thumb"
+            />
+          </td>
+
+          <td>{{ track.album.name }}</td>
+          <td>{{ track.name }}</td>
+          <td>
+            <audio
+              [src]="track.preview_url"
+              class="custom-audio"
+              controls
+            ></audio>
+          </td>
+          <td>
+            <iframe
+              [src]="track.uri | domseguro"
+              width="300"
+              height="80"
+              frameborder="0"
+              allowtransparency="true"
+              allow="encrypted-media"
+            ></iframe>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

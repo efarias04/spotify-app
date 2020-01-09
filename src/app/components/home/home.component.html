@@ -1,0 +1,3 @@
+<app-spinner *ngIf="loading"></app-spinner>
+<app-error [message]="errorMessage" [isError]="isAnError"></app-error>
+<app-cards [items]="newReleases" [source]="source"></app-cards>

@@ -1,0 +1,10 @@
+<div class="row">
+  <div class="col">
+    <input #artist type="text" class="form-control" (keyup)="searchArtits(artist.value)"
+      placeholder="Buscar artista...">
+  </div>
+</div>
+
+<app-spinner *ngIf="loading" class="m-5"></app-spinner>
+<app-error [message]="errorMessage" [isError]="isAnError" class="m-5"></app-error>
+<app-cards *ngIf="!loading" [items]="artists" [source]="source"></app-cards>

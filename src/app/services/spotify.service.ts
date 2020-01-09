@@ -17,10 +17,15 @@ export class SpotifyService {
     if (ConstantsAplicacion.TOKEN === null || ConstantsAplicacion.TOKEN === undefined || ConstantsAplicacion.TOKEN.length === 0) {
       this.updateToken();
     }
-    const url = `https://api.spotify.com/v1/${query}`;
-    const headers = new HttpHeaders({
-      Authorization: 'Bearer ' + ConstantsAplicacion.TOKEN
-    });
+
+    let url: any;
+    let headers: any;
+    setTimeout(() => {
+       url = `https://api.spotify.com/v1/${query}`;
+       headers = new HttpHeaders({
+        Authorization: 'Bearer ' + ConstantsAplicacion.TOKEN
+      });
+    }, 700);
 
     return this.http.get(url, { headers });
   }
